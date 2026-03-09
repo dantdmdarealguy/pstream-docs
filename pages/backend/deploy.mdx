@@ -21,33 +21,33 @@ This method provides a straightforward setup with minimal configuration. For mor
   <Steps.Step>
      **Create `docker-compose.yml`:**
      ```yaml
-            services:
-             postgres:
-                image: postgres
-                environment:
-                  POSTGRES_USER: pstream_user
-                  POSTGRES_DB: pstream
-                  POSTGRES_PASSWORD: YourPasswordHere 
-                ports:
-                  - "5432:5432" 
-                networks:
-                  - p-stream-network
-              p-stream:
-                image: ghcr.io/dumbutdumber/backend:latest
-                environment:
-                  DATABASE_URL: postgresql://pstream_user:YourPasswordHere@postgres:5432/pstream
-                  CRYPTO_SECRET: 32CharacterLongStringHere 
-                  META_NAME: unofficial-backend
-                ports:
-                  - "80:80"
-                depends_on:
-                  - postgres
-                networks:
-                  - p-stream-network
-            networks:
-              p-stream-network: 
-                driver: bridge
-    ```
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: pstream_user
+      POSTGRES_DB: pstream
+      POSTGRES_PASSWORD: YourPasswordHere
+    ports:
+      - "5432:5432"
+    networks:
+      - p-stream-network
+  p-stream:
+    image: ghcr.io/okikio/backend:latest
+    environment:
+      DATABASE_URL: postgresql://pstream_user:YourPasswordHere@postgres:5432/pstream
+      CRYPTO_SECRET: 32CharacterLongStringHere
+      META_NAME: unofficial-backend
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
+    networks:
+      - p-stream-network
+networks:
+  p-stream-network:
+    driver: bridge
+     ```
       **Important:** 
        * Replace `YourPasswordHere` with your secure database password.
        * Generate a strong session secret and replace `32CharacterLongStringHere`.

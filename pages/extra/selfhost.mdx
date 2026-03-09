@@ -14,59 +14,59 @@
     Create a new file named `docker-compose.yml` in your project directory and paste the following content into it:
 
     ```yaml
-      services:
-        postgres:
-          image: postgres
-          environment:
-            POSTGRES_USER: pstream_user
-            POSTGRES_DB: pstream
-            POSTGRES_PASSWORD: YourPasswordHere 
-          ports:
-            - "5432:5432" 
-          networks:
-            - p-stream-network
-        p-stream:
-          image: ghcr.io/dumbutdumber/backend:latest
-          environment:
-            DATABASE_URL: postgresql://pstream_user:YourPasswordHere@postgres:5432/pstream
-            CRYPTO_SECRET: 32CharacterLongStringHere 
-            META_NAME: unofficial-backend
-          ports:
-            - "80:80"
-          depends_on:
-            - postgres
-          networks:
-            - p-stream-network
-
-      p-stream-frontend:
-        build:
-          context: https://github.com/p-stream/p-stream.git
-          args:
-            TMDB_READ_API_KEY: "YourTMDBReadAPIKeyHere"
-            CORS_PROXY_URL: "https://cors.example.tld https://second.cors.example.tld"
-            BACKEND_URL: "https://backend.example.tld"
-            DMCA_EMAIL: "YourEmail"
-            PWA_ENABLED: "true"
-            APP_DOMAIN: "YourDomainHere"
-            OPENSEARCH_ENABLED: "true"
-            GA_ID: "Google ID Here"
-        ports:
-          - "80:80"
-        networks:
-          - p-stream-network
-        restart: unless-stopped
-
-      p-stream-proxy:
-        image: ghcr.io/p-stream/simple-proxy:latest
-        ports:
-          - "3000:3000"
-        networks:
-          - p-stream-network
-        restart: unless-stopped
-
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: pstream_user
+      POSTGRES_DB: pstream
+      POSTGRES_PASSWORD: YourPasswordHere
+    ports:
+      - "5432:5432"
     networks:
-      p-stream-network:
-        driver: bridge
+      - p-stream-network
+  p-stream:
+    image: ghcr.io/okikio/backend:latest
+    environment:
+      DATABASE_URL: postgresql://pstream_user:YourPasswordHere@postgres:5432/pstream
+      CRYPTO_SECRET: 32CharacterLongStringHere
+      META_NAME: unofficial-backend
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
+    networks:
+      - p-stream-network
+
+  p-stream-frontend:
+    build:
+      context: https://github.com/p-stream/p-stream.git
+      args:
+        TMDB_READ_API_KEY: "YourTMDBReadAPIKeyHere"
+        CORS_PROXY_URL: "https://cors.example.tld https://second.cors.example.tld"
+        BACKEND_URL: "https://backend.example.tld"
+        DMCA_EMAIL: "YourEmail"
+        PWA_ENABLED: "true"
+        APP_DOMAIN: "YourDomainHere"
+        OPENSEARCH_ENABLED: "true"
+        GA_ID: "Google ID Here"
+    ports:
+      - "80:80"
+    networks:
+      - p-stream-network
+    restart: unless-stopped
+
+  p-stream-proxy:
+    image: ghcr.io/p-stream/simple-proxy:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - p-stream-network
+    restart: unless-stopped
+
+networks:
+  p-stream-network:
+    driver: bridge
     ```
     **Important:**
     * Replace `YourPasswordHere` with your secure database password.

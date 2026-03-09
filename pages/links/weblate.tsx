@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const redirectTitle = 'Weblate';
+const redirectTitle = 'GitHub';
 const redirectUrl = 'https://github.com/p-stream/p-stream';
 
 export default function WeblateRedirect() {
