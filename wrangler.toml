@@ -1,0 +1,4 @@
+# Cloudflare Pages configuration
+# https://developers.cloudflare.com/pages/configuration/wrangler-configuration/
+name = "streamdocs"
+pages_build_output_dir = "dist"
