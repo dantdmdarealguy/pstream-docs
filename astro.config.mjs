@@ -5,7 +5,10 @@ import Icons from 'unplugin-icons/vite';
 
 // Allow site URL and base path to be overridden via environment variables
 const site = process.env.SITE_URL ?? 'https://okikio.github.io';
-const base = process.env.BASE_PATH ?? '/mov-docs';
+// Default to '/' so root deployments (e.g. Cloudflare Pages) work without any
+// extra configuration.  The GitHub Pages workflow always overrides this via the
+// BASE_PATH env var set by actions/configure-pages.
+const base = process.env.BASE_PATH ?? '/';
 
 // For manual URL construction, strip trailing slash so paths like /favicon.ico
 // work correctly whether base is '/mov-docs' (GitHub Pages) or '/' (Cloudflare Pages).
