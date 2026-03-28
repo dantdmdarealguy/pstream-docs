@@ -17,12 +17,15 @@ pnpm build
 
 ## Cloudflare Pages
 
-Deploy directly from the Cloudflare Pages dashboard or via Wrangler CI:
+Deploy directly from the Cloudflare Pages dashboard. The `wrangler.toml` in this repo sets `pages_build_output_dir = "dist"` automatically.
+
+In the Cloudflare Pages dashboard enter:
 
 | Setting | Value |
 |---------|-------|
 | **Build command** | `pnpm install && pnpm build` |
 | **Build output directory** | `dist` |
+| **Root directory** | *(leave blank)* |
 
 **Environment variables to set in the Cloudflare Pages dashboard:**
 
