@@ -15,6 +15,27 @@ pnpm dev
 pnpm build
 ```
 
+## Cloudflare Pages
+
+Deploy directly from the Cloudflare Pages dashboard or via Wrangler CI:
+
+| Setting | Value |
+|---------|-------|
+| **Build command** | `pnpm install && pnpm build` |
+| **Build output directory** | `dist` |
+
+**Environment variables to set in the Cloudflare Pages dashboard:**
+
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `SITE_URL` | `https://your-project.pages.dev` | Your Cloudflare Pages domain (or custom domain) |
+| `BASE_PATH` | `/` | Site is served at the root — no subdirectory needed |
+| `NODE_VERSION` | `20` | Ensures a modern Node.js is used during the build |
+| `PNPM_VERSION` | `10` | Matches the `pnpm@10.x` version declared in `package.json` |
+
+> **Note**: `SITE_URL` and `BASE_PATH` are consumed at **build time** by `astro.config.mjs` —
+> they are not needed at runtime.
+
 ## Docker
 
 Build and run with Docker:

@@ -7,6 +7,10 @@ import Icons from 'unplugin-icons/vite';
 const site = process.env.SITE_URL ?? 'https://okikio.github.io';
 const base = process.env.BASE_PATH ?? '/mov-docs';
 
+// For manual URL construction, strip trailing slash so paths like /favicon.ico
+// work correctly whether base is '/mov-docs' (GitHub Pages) or '/' (Cloudflare Pages).
+const urlBase = base.endsWith('/') ? base.slice(0, -1) : base;
+
 export default defineConfig({
   site,
   base,
@@ -18,10 +22,10 @@ export default defineConfig({
         light: './src/assets/icon-light.png',
         dark: './src/assets/icon-dark.png',
       },
-      favicon: `${base}/favicon.ico`,
+      favicon: `${urlBase}/favicon.ico`,
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/p-stream/p-stream' },
-        { icon: 'discord', label: 'Discord', href: `${base}/links/discord` },
+        { icon: 'discord', label: 'Discord', href: `${urlBase}/links/discord` },
       ],
       sidebar: [
         {
